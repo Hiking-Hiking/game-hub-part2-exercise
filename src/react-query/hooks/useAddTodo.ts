@@ -13,12 +13,14 @@ const useAddTodo = (onAdd: () => void) => {
   // 第一个参数是Tdata，这代表我们从后端获取的数据，在本例中是一个Todo对象；第二个参数是Terror，代表错误，将成为一个Error对象；第三个参数是Tvariables，是变量，代表我们现在发送到后端的数据，在本例中是一个Todo对象；
   // 在某些应用场景中，我们发送到后端的数据与我们从后端响应中获取到的数据类型不同，在这些情况下，我们将有不同的接口类型来表示输入和输出；
   return useMutation<Todo, Error, Todo, AddTodoContext>({
+    // 初始版本：直接通过axios获取数据；
     // mutationFn: (todo: Todo) =>
     //   axios
     //     //对发送的数据进行类型限定
     //     .post<Todo>("https://jsonplaceholder.typicode.com/todos", todo)
     //     .then((res) => res.data),
     // mutationFn: (newTodo) => apiClient.post(newTodo),
+
     mutationFn: todoService.post,
 
     //onmutate函数在突变mutation被执行之前调用；参数是变量，这里称为newTodo，指的是输入，我们发送到后端的数据，
